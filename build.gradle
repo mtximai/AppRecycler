@@ -20,8 +20,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        // Used for FakeIt: https://github.com/moove-it/fakeit
         maven {url 'https://jitpack.io'}
-        
     }
 }
 

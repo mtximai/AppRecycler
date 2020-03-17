@@ -19,7 +19,6 @@ class EmailBuilder {
     var unread: Boolean = false
 
     fun build() : Email = Email (user, subject, preview, date, stared, unread, false)
-
 }
 
 fun email(block: EmailBuilder.() -> Unit): Email = EmailBuilder().apply(block).build()
@@ -81,6 +80,5 @@ fun fakeEmails(): MutableList<Email> = mutableListOf(
         date = "26 jun"
         stared = false
     }
-
 )
 

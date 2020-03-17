@@ -3,7 +3,9 @@ package com.mtximai.AppRecycler
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mooveit.library.Fakeit
 import com.mtximai.AppRecycler.model.email
 import com.mtximai.AppRecycler.model.fakeEmails
@@ -32,7 +34,40 @@ class MainActivity : AppCompatActivity() {
             addEmail()
             recycler_view_main.scrollToPosition(0)
         }
+
+        val helper = androidx.recyclerview.widget.ItemTouchHelper(
+            ItemTouchHelper(
+                androidx.recyclerview.widget.ItemTouchHelper.UP or androidx.recyclerview.widget.ItemTouchHelper.DOWN,
+                androidx.recyclerview.widget.ItemTouchHelper.LEFT )
+            )
+        helper.attachToRecyclerView(recycler_view_main)
     }
+
+    inner class ItemTouchHelper(dragDirs: Int, swipeDirs: Int) : androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback (
+        dragDirs, swipeDirs
+    ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            val from = viewHolder.adapterPosition
+            val to = target.adapterPosition
+
+            // altera a lista
+            Collections.swap(adapter.emails, from, to)
+
+            // altera a view
+            adapter.notifyItemMoved(from, to)
+
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            TODO("Not yet implemented")
+        }
+    }
+
 
     fun addEmail() {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("pt","BR")).parse (

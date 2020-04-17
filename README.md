@@ -1,3 +1,2 @@
 # AppRecycler
-Example using RecyclerView
-Com base nos videos do Tiago Aguiar
+Android example project using RecyclerView com base nos videos do Tiago Aguiar
